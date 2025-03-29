@@ -13,5 +13,7 @@
 // 6. Test the code to ensure the code functions correctly.
 
 public class ArrayOut {
-    
+    public static void main(String[] args) {
+        
+    }
 }
