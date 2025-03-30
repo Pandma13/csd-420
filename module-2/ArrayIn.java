@@ -11,12 +11,16 @@
 // 4. If there is a file, the data will be appended.
 // 5. Write a second program that will read the file and display the data.
 // 6. Test the code to ensure the code functions correctly.
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Arrays;
+import java.io.*;
+import java.util.*;
 
 public class ArrayIn {
-    static int[] buildIntArray() {
+    
+    public static void main(String[] args) {
+            
+    }
+    
+    public static int[] buildIntArray() {
         int[] myIntArray = new int[5];
 
         int randomInt = (int)(Math.random() * 101);
@@ -29,7 +33,7 @@ public class ArrayIn {
         return myIntArray;
     }
 
-    static double[] buildDoubleArray() {
+    public static double[] buildDoubleArray() {
         double[] myDoubleArray = new double[5];
 
         double randomDouble = (double)(Math.random() * 101);
@@ -42,14 +46,14 @@ public class ArrayIn {
         return myDoubleArray;
     }
 
-    public static void main(String[] args) {
-        try {
-            FileWriter myFileWriter = new FileWriter("wheeler_datafile.dat");
+    public static void writeToFile(){
+        
+        try (FileWriter myFileWriter = new FileWriter("wheeler_datafile.dat")) {
             myFileWriter.write(Arrays.toString(buildIntArray()));
             myFileWriter.write(Arrays.toString(buildDoubleArray()));
-            myFileWriter.close();
-        } catch (IOException e) {
             
+        } catch (IOException e) {
+            System.err.println(e);
         }
     }
 }
