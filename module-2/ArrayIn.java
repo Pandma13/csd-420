@@ -17,13 +17,16 @@ import java.util.*;
 public class ArrayIn {
     
     public static void main(String[] args) {
-        writeToFile();
+        writeToFile(); // call method to create or append file
     }
 
+    // method to create and populate random int array
     public static int[] buildIntArray() {
+        // declare array and random variables
         int[] myIntArray = new int[5];
         Random random = new Random();
 
+        // loop through array to populate with random int
         for (int i = 0; i < 5; i++) {
             myIntArray[i] = random.nextInt() * 100;
         }
@@ -31,10 +34,13 @@ public class ArrayIn {
         return myIntArray;
     }
 
+    // method to create and populate random double array
     public static double[] buildDoubleArray() {
+        // declare array and random variables
         double[] myDoubleArray = new double[5];
         Random random = new Random();
 
+        // loop through array to populate with random double
         for (int i = 0; i < 5; i++) {
             myDoubleArray[i] = random.nextDouble() * 100;
         }
@@ -42,7 +48,8 @@ public class ArrayIn {
         return myDoubleArray;
     }
 
-    public static void writeToFile(){        
+    // method to create or append file with both arrays
+    public static void writeToFile(){
         try (BufferedWriter myBuffWriter = new BufferedWriter(new FileWriter("wheeler_datafile.dat"))) {
             myBuffWriter.write(Arrays.toString(buildIntArray()));
             myBuffWriter.write(Arrays.toString(buildDoubleArray()));
