@@ -17,17 +17,15 @@ import java.util.*;
 public class ArrayIn {
     
     public static void main(String[] args) {
-            
+        writeToFile();
     }
-    
+
     public static int[] buildIntArray() {
         int[] myIntArray = new int[5];
+        Random random = new Random();
 
-        int randomInt = (int)(Math.random() * 101);
-
-        for (int i = 0; i < myIntArray.length; i++) {
-            myIntArray[i] = randomInt;
-            i++;
+        for (int i = 0; i < 5; i++) {
+            myIntArray[i] = random.nextInt() * 100;
         }
 
         return myIntArray;
@@ -35,25 +33,22 @@ public class ArrayIn {
 
     public static double[] buildDoubleArray() {
         double[] myDoubleArray = new double[5];
+        Random random = new Random();
 
-        double randomDouble = (double)(Math.random() * 101);
-
-        for (int i = 0; i < myDoubleArray.length; i++) {
-            myDoubleArray[i] = randomDouble;
-            i++;
+        for (int i = 0; i < 5; i++) {
+            myDoubleArray[i] = random.nextDouble() * 100;
         }
 
         return myDoubleArray;
     }
 
-    public static void writeToFile(){
-        
-        try (FileWriter myFileWriter = new FileWriter("wheeler_datafile.dat")) {
-            myFileWriter.write(Arrays.toString(buildIntArray()));
-            myFileWriter.write(Arrays.toString(buildDoubleArray()));
+    public static void writeToFile(){        
+        try (BufferedWriter myBuffWriter = new BufferedWriter(new FileWriter("wheeler_datafile.dat"))) {
+            myBuffWriter.write(Arrays.toString(buildIntArray()));
+            myBuffWriter.write(Arrays.toString(buildDoubleArray()));
             
         } catch (IOException e) {
-            System.err.println(e);
+            System.err.println("An error occurred while writing to the file.");
         }
     }
 }
