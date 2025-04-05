@@ -10,7 +10,62 @@
 //     explain the results and discuss the time taken using both values and their
 //     difference with the get(index) approach.
 // 3.  Write test code that ensures the code functions correctly.
+import java.util.*;
 
 public class TimeToTraverseLinkedList {
-    
+
+    public static void main(String[] args) {
+        populateList(50000);
+        populateList(500000);
+
+        calculateTimeToIterate(populateList(50000));
+        calculateTimeToGetIndex(populateList(50000));
+
+        calculateTimeToIterate(populateList(500000));
+        calculateTimeToGetIndex(populateList(500000));
+    }
+
+    public static LinkedList<Integer> populateList(int n) {
+        int elementNumber = n;
+
+        LinkedList<Integer> list = new LinkedList<>();
+
+        while (list.size() < elementNumber) {
+            int i = (int)(Math.random() * 1001);
+
+            list.add(i);
+        }
+        
+        System.out.println("List length: " + list.size());
+
+        return list;
+    }
+
+    public static void calculateTimeToIterate(LinkedList<Integer> list) {
+        long startTime = System.nanoTime();
+
+        for (Integer num : list) {
+
+        }
+
+        long endTime = System.nanoTime();
+        long elapsedTime = endTime - startTime;
+        double elapsedMillisecondTime = (double) elapsedTime / 1_000_000.0;
+
+        System.out.println("Time to iterate with Iterator: " + elapsedMillisecondTime + " milliseconds");
+    }
+
+    public static void calculateTimeToGetIndex(LinkedList<Integer> list) {
+        long startTime = System.nanoTime();
+
+        for (Integer num : list) {
+
+        }
+
+        long endTime = System.nanoTime();
+        long elapsedTime = endTime - startTime;
+        double elapsedMillisecondTime = (double) elapsedTime / 1_000_000.0;
+
+        System.out.println("Time to iterate with get(index): " + elapsedMillisecondTime + " milliseconds");
+    }
 }
