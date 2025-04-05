@@ -10,11 +10,12 @@ import java.util.ArrayList;
 
 public class IntArrayListDeduplicator {
     public static void main(String[] args) {
-        
+        // call method to remove duplicates using random int array method
+        System.out.println(removeDuplicates(randomIntArrayList()).toString());
     }
 
     // build and populate ArrayList with 50 random int elements from 1-20
-    public static void randomIntArrayList(){
+    public static ArrayList<Integer> randomIntArrayList(){
         // generate random int from 1-20
         int randomInt = (int)(Math.random() * 21);
 
@@ -26,11 +27,24 @@ public class IntArrayListDeduplicator {
             i = randomInt;
             randomIntArray.add(i);
         }
+
+        System.out.println(randomIntArray);
+
+        // return populated ArrayList
+        return randomIntArray;
     }
 
     // pass random ArrayList to remove duplicates and return updated ArrayList
     public static <E> ArrayList<E> removeDuplicates(ArrayList<E> list) {
-
+        for (E i : list) {
+            if (list.contains(i));
+            else {
+                list.add(i);
+            }
+        }
+        
+        System.out.println(list);
+        // return deduplicated ArrayList
         return list;
     }
 }
