@@ -12,7 +12,7 @@ public class IntArrayListDeduplicator {
     public static void main(String[] args) {
 
         // call method to remove duplicates using random int array method
-        System.out.println(removeDuplicates(randomIntArrayList()).toString());
+        IntArrayListDeduplicator.<Integer>removeDuplicates(randomIntArrayList());
     }
 
     // build and populate ArrayList with 50 random int elements from 1-20
@@ -29,21 +29,20 @@ public class IntArrayListDeduplicator {
             randomIntArray.add(i);
         }
 
+        System.out.println("Original list length: " + randomIntArray.size());
         System.out.println(randomIntArray.toString());
 
         // return populated ArrayList
         return randomIntArray;
     }
 
-    // pass random ArrayList to remove duplicates and return updated ArrayList
+    // remove duplicates and return updated ArrayList
     public static <E> ArrayList<E> removeDuplicates(ArrayList<E> list) {        
-        for (E i : list) {
-            if (list.contains(i));
-            else {
-                list.add(i);
-            }
-        }
+        // add random list to LinkedHashSet to remove duplicates.
+        list = new ArrayList<>(new LinkedHashSet<>(list));
         
+        System.out.println();
+        System.out.println("Deduplicated list length: " + list.size());
         System.out.println(list.toString());
         // return deduplicated ArrayList
         return list;
