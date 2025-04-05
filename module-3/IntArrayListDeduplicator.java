@@ -6,36 +6,37 @@
 // 2. Return a new ArrayList that contains all original values and no duplicates
 //     from the original ArrayList.
 // 3. Use public static <E> ArrayList<E> removeDuplicates(ArrayList<E> list)
-import java.util.ArrayList;
+import java.util.*;
 
 public class IntArrayListDeduplicator {
     public static void main(String[] args) {
+
         // call method to remove duplicates using random int array method
         System.out.println(removeDuplicates(randomIntArrayList()).toString());
     }
 
     // build and populate ArrayList with 50 random int elements from 1-20
     public static ArrayList<Integer> randomIntArrayList(){
-        // generate random int from 1-20
-        int randomInt = (int)(Math.random() * 21);
 
         // declare an int ArrayList with 50 elements
-        ArrayList<Integer> randomIntArray = new ArrayList<>(50);
+        ArrayList<Integer> randomIntArray = new ArrayList<>();
 
         // populate ArrayList with random int elements
-        for (Integer i : randomIntArray) {
-            i = randomInt;
+        while (randomIntArray.size() < 50) {
+            // generate random int from 1-20
+            int i = (int)(Math.random() * 21);
+
             randomIntArray.add(i);
         }
 
-        System.out.println(randomIntArray);
+        System.out.println(randomIntArray.toString());
 
         // return populated ArrayList
         return randomIntArray;
     }
 
     // pass random ArrayList to remove duplicates and return updated ArrayList
-    public static <E> ArrayList<E> removeDuplicates(ArrayList<E> list) {
+    public static <E> ArrayList<E> removeDuplicates(ArrayList<E> list) {        
         for (E i : list) {
             if (list.contains(i));
             else {
@@ -43,7 +44,7 @@ public class IntArrayListDeduplicator {
             }
         }
         
-        System.out.println(list);
+        System.out.println(list.toString());
         // return deduplicated ArrayList
         return list;
     }
