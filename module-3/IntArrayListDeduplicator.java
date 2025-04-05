@@ -22,8 +22,9 @@ public class IntArrayListDeduplicator {
         ArrayList<Integer> randomIntArray = new ArrayList<>(50);
 
         // populate ArrayList with random int elements
-        for (int i = 0; i < randomIntArray.size(); i++) {
-            randomIntArray.add(randomInt);
+        for (Integer i : randomIntArray) {
+            i = randomInt;
+            randomIntArray.add(i);
         }
     }
 
