@@ -15,7 +15,16 @@ public class IntArrayListDeduplicator {
 
     // build and populate ArrayList with 50 random int elements from 1-20
     public static void randomIntArrayList(){
+        // generate random int from 1-20
+        int randomInt = (int)(Math.random() * 21);
 
+        // declare an int ArrayList with 50 elements
+        ArrayList<Integer> randomIntArray = new ArrayList<>(50);
+
+        // populate ArrayList with random int elements
+        for (int i = 0; i < randomIntArray.size(); i++) {
+            randomIntArray.add(randomInt);
+        }
     }
 
     // pass random ArrayList to remove duplicates and return updated ArrayList
