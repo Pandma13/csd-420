@@ -15,14 +15,14 @@ import java.util.*;
 public class TimeToTraverseLinkedList {
 
     public static void main(String[] args) {
-        populateList(50000);
-        populateList(500000);
+        populateList(50_000);
+        populateList(500_000);
 
-        calculateTimeToIterate(populateList(50000));
-        calculateTimeToGetIndex(populateList(50000));
+        calculateTimeToIterate(populateList(50_000));
+        calculateTimeToGetIndex(populateList(50_000));
 
-        calculateTimeToIterate(populateList(500000));
-        calculateTimeToGetIndex(populateList(500000));
+        calculateTimeToIterate(populateList(500_000));
+        calculateTimeToGetIndex(populateList(500_000));
     }
 
     public static LinkedList<Integer> populateList(int n) {
@@ -44,8 +44,8 @@ public class TimeToTraverseLinkedList {
     public static void calculateTimeToIterate(LinkedList<Integer> list) {
         long startTime = System.nanoTime();
 
-        for (Integer num : list) {
-
+        for (Iterator<Integer> myIterator = list.iterator(); myIterator.hasNext();) {
+            myIterator.next();
         }
 
         long endTime = System.nanoTime();
@@ -58,8 +58,9 @@ public class TimeToTraverseLinkedList {
     public static void calculateTimeToGetIndex(LinkedList<Integer> list) {
         long startTime = System.nanoTime();
 
-        for (Integer num : list) {
-
+        // Add get(index)
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i);
         }
 
         long endTime = System.nanoTime();
