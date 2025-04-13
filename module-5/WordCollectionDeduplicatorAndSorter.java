@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 public class WordCollectionDeduplicatorAndSorter {
     
@@ -24,25 +25,29 @@ public class WordCollectionDeduplicatorAndSorter {
 
     }
 
-    public static String wordCollectionReader() {
-        String word = null;
+    public static HashSet<String> wordCollectionDeduplicator() {
+        HashSet<String> wordHashSet = new HashSet<>();
 
         try {
             File myCollection = new File("collection_of_words.txt");
             try (Scanner myScanner = new Scanner(myCollection)) {
                 while (myScanner.hasNextLine()) {
-                    word = myScanner.nextLine();
-                    return word;
+                    wordHashSet.add(myScanner.nextLine());
+                    return wordHashSet;
                 }
             }
 
         } catch (FileNotFoundException e) {
             System.out.println("The file could not be found.");
         }
-        return word;
+        return wordHashSet;        
     }
 
-    public static HashSet<String> wordCollectionSet(String str) {
+    public static TreeSet<String> wordCollectionSorter() {
+
+        TreeSet<String> wordTreeSet = new TreeSet<>();
+        wordTreeSet.addAll(wordHashSet);
+        
         return null;
         
     }
