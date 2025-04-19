@@ -3,18 +3,27 @@
 // 17 April 2025
 
 import java.util.Comparator;
+import java.util.Arrays;
 
 public class Wheeler_Bubble_Sort {
     
     public static void main(String[] args) {
         // create a populated Integer list
         Integer[] intList = {15, 6, 4, 10, 7, 2, 9, 3};
+        // call bubble sort with list
         bubbleSort(intList);
-        System.out.println("Sorted Integer list: ");
-        for (int num : intList) {
-            System.out.print(num + " ");
-        }
+
+        System.out.println("Comparable sorted Integer list: " + Arrays.toString(intList));
+
         System.out.println();
+
+        // create comparator
+        Comparator<Integer> bubbleComparator = Comparator.comparingInt(a -> a.value);
+        // call bubble sort with list and comparator
+        bubbleSort(intList, bubbleComparator);
+
+        System.out.println("Comparator sorted Integer list: " + Arrays.toString(intList));
+
     }
 
     // Bubble sort method using Comparable
@@ -38,7 +47,7 @@ public class Wheeler_Bubble_Sort {
                     listChanged = true;
                 }
             }
-
+            // break loop if no changes were made in inner loop
             if (!listChanged) {
                 break;
             }
@@ -47,7 +56,29 @@ public class Wheeler_Bubble_Sort {
 
     // Bubble sort method using Comparator
     public static <E> void bubbleSort(E[] list, Comparator<? super E> comparator) {
-
+        // declare variables for list length and list changed
+        int n = list.length;
+        boolean listChanged;
+        // loop through list
+        for (int i = 0; i < n - 1; i ++) {
+            // declare value for list changed
+            listChanged = false;
+            // loop through list and compare elements
+            for (int j = 0; j < n - i - 1; j++) {
+                // compare using comparator.compare
+                if (comparator.compare(list[j], list[j + 1]) < 0) {
+                    // change elements
+                    E tempElement = list[j];
+                    list[j] = list[j + 1];
+                    list[j + 1] = tempElement;
+                    listChanged = true;
+                }
+            }
+            // break loop if no changes were made in inner loop
+            if (!listChanged) {
+                break;
+            }
+        }
     }
 
 }
