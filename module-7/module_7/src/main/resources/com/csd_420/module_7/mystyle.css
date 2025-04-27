@@ -1,0 +1,36 @@
+/*Megan Wheeler
+Assignment 7
+Follow the directions below:
+
+1. Create an external CSS style sheet that defines a class for white fill and
+    black stroke color and an ID for red and green color.
+2. Write a JavaFX program that displays four circles and uses the style class
+    and ID. The sample run of the program is shown in the following image.
+3. Use the mystyle.css found early in Chapter 31.
+4. Write test code that ensures your code functions correctly.*/
+
+
+.plaincircle { 
+    -fx-fill: white;
+    -fx-stroke: black;
+} 
+
+.circleborder { 
+    -fx-stroke-width: 5;
+    -fx-stroke-dash-array: 12 2 4 2;
+} 
+
+.border { 
+    -fx-border-color: black;
+    -fx-border-width: 5;
+} 
+
+#redcircle { 
+    -fx-fill: red;
+    -fx-stroke: red;
+} 
+
+#greencircle { 
+    -fx-fill: green;
+    -fx-stroke: green;
+}
