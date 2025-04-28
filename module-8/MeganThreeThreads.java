@@ -15,32 +15,39 @@
 // 6. Display a minimum of 10,000 for each of the three sets.
 // 7. Write test code that ensures all methods function correctly.
 import java.awt.*;
-import java.util.Random;
+import java.util.*;
 import javax.swing.*;
 
 public class MeganThreeThreads extends JFrame{
+    // declare private variables
     private JTextArea textArea;
     private Random random = new Random();
+    private int charCount = 0;
 
     public MeganThreeThreads() {
+        // customize text display
         setTitle("Megan Three Threads Display");
         setSize(400, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        // create text display
         textArea = new JTextArea();
-        textArea.setFont(new Font("monospaced", Font.PLAIN, 18));
+        textArea.setFont(new Font("monospaced", Font.PLAIN, 16));
         add(new JScrollPane(textArea), BorderLayout.CENTER);
 
+        // create threads
         Thread thread1 = new Thread(new RandomLetterWriter());
         Thread thread2 = new Thread(new RandomDigitWriter());
         Thread thread3 = new Thread(new RandomSymbolWriter());
 
+        // starts threads
         thread1.start();
         thread2.start();
         thread3.start();
     }
 
+    // generates a random letter
     class RandomLetterWriter implements Runnable {
         @Override
         public void run() {
@@ -54,6 +61,7 @@ public class MeganThreeThreads extends JFrame{
         }
     }
 
+    // generates a random digit
     class RandomDigitWriter implements Runnable {
         @Override
         public void run() {
@@ -65,6 +73,7 @@ public class MeganThreeThreads extends JFrame{
         }
     }
 
+    // generates a random symbol
     class RandomSymbolWriter implements Runnable {
         private final char[] symbols = {
             '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', 
@@ -82,20 +91,34 @@ public class MeganThreeThreads extends JFrame{
         }
     }
 
+    // adds characters to display
     private void appendCharacter(char c) {
-        SwingUtilities.invokeLater(() -> textArea.append(Character.toString(c)));
+        SwingUtilities.invokeLater(() -> {
+            // appends display with character and space
+            textArea.append(Character.toString(c) + " ");
+            charCount++;
+            // starts on a new line after 20 characters
+            if (charCount % 20 == 0) {
+                textArea.append("\n");
+            }
+        });
     }
 
+    // pauses after each character is displayed
     private void sleep() {
         try {
-            if (Thread.interrupted()) // Clears interrupted status!
+            Thread.sleep(50);
+            if (Thread.interrupted())
             throw new InterruptedException();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            JOptionPane.showMessageDialog(this, "Thread interrupted!", "Thread Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public static void main(String[] args) {
+
+        // create new frame and make it visible
         SwingUtilities.invokeLater(() -> {
             MeganThreeThreads frame = new MeganThreeThreads();
             frame.setVisible(true);
