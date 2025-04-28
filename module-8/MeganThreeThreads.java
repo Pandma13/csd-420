@@ -14,7 +14,91 @@
 //     !, @, #, $, %, &, *
 // 6. Display a minimum of 10,000 for each of the three sets.
 // 7. Write test code that ensures all methods function correctly.
+import java.awt.*;
+import java.util.Random;
+import javax.swing.*;
 
-public class MeganThreeThreads {
-    
+public class MeganThreeThreads extends JFrame{
+    private JTextArea textArea;
+    private Random random = new Random();
+
+    public MeganThreeThreads() {
+        setTitle("Megan Three Threads Display");
+        setSize(400, 300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        textArea = new JTextArea();
+        textArea.setFont(new Font("monospaced", Font.PLAIN, 18));
+        add(new JScrollPane(textArea), BorderLayout.CENTER);
+
+        Thread thread1 = new Thread(new RandomLetterWriter());
+        Thread thread2 = new Thread(new RandomDigitWriter());
+        Thread thread3 = new Thread(new RandomSymbolWriter());
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+    }
+
+    class RandomLetterWriter implements Runnable {
+        @Override
+        public void run() {
+            for(int i = 0; i <10_000; i++) {
+                char letter = (char) (random.nextBoolean() ?
+                    ('A' + random.nextInt(26)) :
+                    ('a' + random.nextInt(26)));
+                appendCharacter(letter);
+                sleep();
+            }
+        }
+    }
+
+    class RandomDigitWriter implements Runnable {
+        @Override
+        public void run() {
+            for(int i = 0; i < 10_000; i++) {
+                char digit = (char) ('0' + random.nextInt(10));
+                appendCharacter(digit);
+                sleep();
+            }
+        }
+    }
+
+    class RandomSymbolWriter implements Runnable {
+        private final char[] symbols = {
+            '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', 
+            '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', 
+            '\'', '"', ',', '.', '<', '>', '/', '?', '\\', '|', '`', '~'
+        };
+
+        @Override
+        public void run() {
+            for(int i = 0; i < 10_000; i++) {
+                char symbol = symbols[random.nextInt(symbols.length)];
+                appendCharacter(symbol);
+                sleep();
+            }
+        }
+    }
+
+    private void appendCharacter(char c) {
+        SwingUtilities.invokeLater(() -> textArea.append(Character.toString(c)));
+    }
+
+    private void sleep() {
+        try {
+            if (Thread.interrupted()) // Clears interrupted status!
+            throw new InterruptedException();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            MeganThreeThreads frame = new MeganThreeThreads();
+            frame.setVisible(true);
+        });
+    }
 }
