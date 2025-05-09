@@ -1,5 +1,12 @@
 package com.fanapp;
 
+// Megan Wheeler
+// Assignment 10
+// 7 May 2025
+
+// This program is a simple database management system for a fan database.
+// It allows users to display and update records in the database.
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.sql.Connection;
@@ -18,10 +25,13 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 public class FanDatabase extends JFrame {
+
+    // Initialize components
     private JTextField idField, firstNameField, lastNameField, favoriteTeamField;
     private JButton displayButton, updateButton;
     private Connection connection;
 
+    // Constructor for the FanDatabase class
     public FanDatabase() {
         // Set up the frame
         setTitle("Fan Database Management");
@@ -73,6 +83,7 @@ public class FanDatabase extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    // Initialize the database connection
     private void initializeDatabase() {
         try {
             // Load the JDBC driver
@@ -89,7 +100,9 @@ public class FanDatabase extends JFrame {
         }
     }
 
+    // Display a record from the database
     private void displayRecord() {
+        // Get the ID from the input field
         try {
             String id = idField.getText();
             if (id.isEmpty()) {
@@ -97,11 +110,13 @@ public class FanDatabase extends JFrame {
                 return;
             }
 
+            // Create a query to select the record from the database
             String query = "SELECT * FROM fans WHERE ID = ?";
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setString(1, id);
             ResultSet rs = pstmt.executeQuery();
 
+            // If the record is found, set the text fields to the record values
             if (rs.next()) {
                 firstNameField.setText(rs.getString("firstname"));
                 lastNameField.setText(rs.getString("lastname"));
@@ -110,6 +125,7 @@ public class FanDatabase extends JFrame {
                 JOptionPane.showMessageDialog(this, "No record found with ID: " + id);
             }
 
+            // Close the result set and prepared statement
             rs.close();
             pstmt.close();
 
@@ -118,18 +134,22 @@ public class FanDatabase extends JFrame {
         }
     }
 
+    // Update a record in the database
     private void updateRecord() {
         try {
+            // Get the ID from the input field
             String id = idField.getText();
             String firstName = firstNameField.getText();
             String lastName = lastNameField.getText();
             String favoriteTeam = favoriteTeamField.getText();
 
+            // If any of the fields are empty, show an error message
             if (id.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || favoriteTeam.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please fill in all fields");
                 return;
             }
 
+            // Create a query to update the record in the database
             String query = "UPDATE fans SET firstname = ?, lastname = ?, favoriteteam = ? WHERE ID = ?";
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setString(1, firstName);
@@ -137,13 +157,17 @@ public class FanDatabase extends JFrame {
             pstmt.setString(3, favoriteTeam);
             pstmt.setString(4, id);
 
+            // Execute the update
             int rowsAffected = pstmt.executeUpdate();
+
+            // If the record is updated, show a success message
             if (rowsAffected > 0) {
                 JOptionPane.showMessageDialog(this, "Record updated successfully");
             } else {
                 JOptionPane.showMessageDialog(this, "No record found with ID: " + id);
             }
 
+            // Close the prepared statement
             pstmt.close();
 
         } catch (SQLException e) {
@@ -151,6 +175,7 @@ public class FanDatabase extends JFrame {
         }
     }
 
+    // Main method to run the program
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new FanDatabase().setVisible(true);
